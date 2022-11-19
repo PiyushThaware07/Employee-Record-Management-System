@@ -1,0 +1,66 @@
+{% extends 'apps/index.html' %}
+
+{% block title %}Employee Signup{% endblock title %}
+
+{% block content %}
+
+<script>
+    function checkpassword()
+    {
+        if(document.signup.password1.value != document.signup.password2.value)
+        {
+            alert("Password doesn't matches");
+            document.signup.password1.focus();
+            return false;
+        }
+        return true;
+    }
+</script>
+
+<div class="container-fluid d-flex justify-content-center align-items-center" style="height:100vh;width:100vw;margin-top:-27px;">
+    <div class="card shadow bg-transparent w-50 p-3">
+        <div class="card-title text-center mt-3" style="border-bottom:2px solid orangered"><h3><b>Create Account</b></h3></div>
+        <div class="card-body">
+            <form action="" method="post" name="signup" onsubmit="return checkpassword()">
+                {% csrf_token %}
+                <div class="col">
+                    <label for="firstname"><b class="text-black">First Name</b></label>
+                    <input type="text" placeholder="Enter firstname" class="form-control" id="firstname" name="firstname">
+                </div>
+                <div class="col my-1">
+                    <label for="lastname"><b class="text-black">Last Name</b></label>
+                    <input type="text" placeholder="Enter lastname" class="form-control" id="lastname" name="lastname">
+                </div>
+                <div class="col">
+                    <label for="email"><b class="text-black">Email ID</b></label>
+                    <input type="email" placeholder="Enter Email Address" class="form-control" id="email" name="email">
+                </div>
+                <div class="col my-1">
+                    <label for="password1"><b class="text-black">Password</b></label>
+                    <input type="password" placeholder="Enter Password" class="form-control" id="password1" name="password1">
+                </div>
+                <div class="col">
+                    <label for="password2"><b class="text-black">Confirm Password</b></label>
+                    <input type="text" placeholder="Enter Confirm Password" class="form-control" id="password2" name="password2">
+                </div>
+                
+                    <div class="col-lg-6"><a href=""><button class="btn btn-sm mt-4 p-2" style="width:100px; background-color:orangered; border:0px;border-radius:0px;color:white;"><i class="fa fa-user-plus"></i> Create</button></a></div>
+                    <a href="{% url 'emp_login' %}" class="text-decoration-none text-black p-2 d-none d-lg-block" style="position: absolute;float:right;right:30px;bottom:28px;"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% if error == 'no' %}
+<script>
+    alert('Account Created Successfully');
+    window.location = ('{% url 'emp_login' %}'); 
+</script>
+{% endif %}
+{% if error == 'yes' %}
+<script>
+    alert('Something Went Wrong,Try Again ...,Email already register');
+</script>
+{% endif %}
+
+{% endblock content %}

@@ -1,0 +1,77 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Home{% endblock title %}</title>
+  <style>
+    body {
+      box-sizing: border-box;
+      padding: 0;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    #mainContainer {
+      height: 100vh;
+      width: 100vw;
+      background-image: url("{% static 'images/bg.jpg' %}");
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+
+    #mainContainer .container {
+      height: 100vh;
+      width: 100vw;
+    }
+
+    .container .row a .btn:hover {
+      background-color: orangered;
+    }
+  </style>
+
+  <!--Font Icon-->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+</head>
+
+<body>
+  <div class="container-fluid p-0 m-0" id="mainContainer">
+
+    <!-- Navbar  --------------------------------------------- -->
+    <nav class="navbar navbar-expand-lg bg-black navbar-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'index' %}"><b>ERMS</b></a>
+        <a class="nav-link active" aria-current="page" href="{% url 'index' %}"><button class="btn btn-sm p-2"
+                style="width: 100px;background-color: orangered;border-top-left-radius: 40px;border-bottom-left-radius: 40px;color: white;position: absolute;float: right;right: 10px;bottom:8px;"><i class="fa fa-home"></i> Home</button></a>
+              
+      </div>
+    </nav>
+
+    <!-- Content ---------------------------------------------->
+    {% block content %}
+    <div class="container d-flex flex-wrap justify-content-center align-items-center">
+      <div class="row text-center">
+        <div class="col-md-4"><a href="{% url 'emp_login' %}"><button class="btn btn-dark p-3 my-lg-0 my-4"
+              style="width: 250px;border-radius: 40px;border: 0px;">Employee Login</button></a></div>
+        <div class="col-md-4"><a href="{% url 'emp_signup' %}"><button class="btn btn-dark p-3 my-lg-0 my-4"
+              style="width: 250px;border-radius: 40px;border: 0px;">Employee Register</button></a></div>
+        <div class="col-md-4"><a href=""><button class="btn btn-dark p-3 my-lg-0 my-4"
+              style="width: 250px;border-radius: 40px;border: 0px;">Admin Login</button></a></div>
+      </div>
+    </div>
+    {% endblock content %}
+
+
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
