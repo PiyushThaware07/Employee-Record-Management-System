@@ -20,6 +20,10 @@ def emp_login(request):
 
     return render(request, 'apps/emp_login.html',locals())
 
+def emp_logout(request):
+    logout(request)
+    return redirect('index')
+
 def emp_signup(request):
     if request.method == "POST":
         fname = request.POST['firstname']
@@ -34,3 +38,26 @@ def emp_signup(request):
         except:
             error = 'yes'    
     return render(request, 'apps/emp_signup.html',locals())
+
+def emp_Interface(request):
+    return render(request, 'apps/emp_Interface.html')
+
+def emp_changePassword(request):
+    if not request.user.is_authenticated:
+        return redirect('emp_login')
+    error = ""
+    user = request.user 
+    if request.method == "POST":
+        current = request.POST['currentPassword']   
+        new = request.POST['newPassword']  
+
+        try:
+            if user.check_password(current):
+                user.set_password(new)
+                user.save()
+                error = "no"
+            else:
+                error = "yes"
+        except:
+            error = "yes"            
+    return render(request, 'apps/emp_changePassword.html',locals())
