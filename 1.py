@@ -7,6 +7,7 @@ temp = [random.choice(combine_list) for item in range(max_length)]
 emp_code = ""
 for element in temp:
     emp_code+=element
-print(emp_code)    
+emp_id = emp_code
+print(emp_id)    
 
 

@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from . models import *
 from django.contrib.auth import authenticate,login,logout
+import random
 
 # Create your views here.
 def index(request):
@@ -31,15 +32,29 @@ def emp_signup(request):
         email = request.POST['email']
         password = request.POST['password1']
 
+        # Generate Emp_id
+        max_length = 6
+        digits = ['0','1','2','3','4','5','6','7','8','9']
+        character = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','w','x','y','z']
+        combine_list = digits + character
+        temp = [random.choice(combine_list) for item in range(max_length)]
+        emp_code = ""
+        for element in temp:
+            emp_code+=element
+        emp_id = emp_code
+
         error = ""
         try:
             new_user = User.objects.create_user(first_name=fname,last_name=lname,username=email,password=password)   
+            employee = EmployeeDetail.objects.create(user=new_user,empcode=emp_id)
             error = 'no'
         except:
             error = 'yes'    
     return render(request, 'apps/emp_signup.html',locals())
 
 def emp_Interface(request):
+    if not request.user.is_authenticated:
+        return redirect('emp_login')
     return render(request, 'apps/emp_Interface.html')
 
 def emp_changePassword(request):
