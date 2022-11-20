@@ -76,3 +76,34 @@ def emp_changePassword(request):
         except:
             error = "yes"            
     return render(request, 'apps/emp_changePassword.html',locals())
+
+def emp_profile(request):
+    if not request.user.is_authenticated:
+        return redirect('emp_login')
+    user = request.user 
+    employee = EmployeeDetail.objects.get(user=user)
+    error = ""
+    if request.method == "POST":
+        fname = request.POST['firstname']
+        lname = request.POST['lastname']
+        email = request.POST['email']
+        contact = request.POST['contact']
+        designation = request.POST['designation']
+        department = request.POST['department']
+        joinDate = request.POST['joinDate']
+
+        employee.user.first_name = fname
+        employee.user.last_name = lname
+        employee.user.username = email
+        employee.emp_contact = contact
+        employee.emp_designation = designation
+        employee.emp_department = department
+        employee.emp_joinDate = joinDate
+        try:
+            employee.save()
+            employee.user.save()
+            error = "no"
+        except:
+            error = "yes"    
+
+    return render(request, 'apps/emp_profile.html',locals())    

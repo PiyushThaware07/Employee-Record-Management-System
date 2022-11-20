@@ -1,0 +1,71 @@
+{% extends 'apps/emp_Interface.html' %}
+
+{% block title %}Profile{% endblock title %}
+
+{% block data %}
+<div class="alert alert-primary" role="alert">
+    <div class="row p-2">
+        <h5 class="mb-0">User Profile</h5>
+    </div>
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="card shadow p-3 mt-3">
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="firstname">First Name</label>
+                    <input type="text" placeholder="First Name" class="form-control" name="firstname" id="firstname" pattern="[A-Za-z]+" value="{{employee.user.first_name}}">
+                </div>
+                <div class="col-md-6">
+                    <label for="lastname">Last Name</label>
+                    <input type="text" placeholder="Last Name" class="form-control" name="lastname" id="lastname" pattern="[A-Za-z]+" value="{{employee.user.last_name}}">
+                </div>
+            </div>
+            <div class="row my-3">
+                <div class="col-md-6">
+                    <label for="email">Email ID</label>
+                    <input type="eamil" placeholder="Email ID" class="form-control" name="email" id="email" value="{{employee.user.username}}">
+                </div>
+                <div class="col-md-6">
+                    <label for="contact">Contact</label>
+                    <input type="tel" placeholder="Contact No" class="form-control" name="contact" id="contact" pattern="[0-9]+" value="{{employee.emp_contact}}">
+                </div>
+            </div>
+            
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="employeeId">Employee ID</label>
+                    <input type="text" placeholder="Employee ID" class="form-control" name="employeeId" id="employeeId" value="{{employee.empcode}}" class="field left" readonly>
+                </div>
+                <div class="col-md-6">
+                    <label for="designation">Designation</label>
+                    <input type="text" placeholder="Designation" class="form-control" name="designation" id="designation" pattern="[A-Za-z]+" value="{{employee.emp_designation}}">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="department">Employee Department</label>
+                    <input type="text" placeholder="Employee Department" class="form-control" name="department" id="department" pattern="[A-Za-z]+" value="{{employee.emp_department}}">
+                </div>
+                <div class="col-md-6">
+                    <label for="joinDate">Joining Date</label>
+                    <input type="date" placeholder="Joining Date" class="form-control" name="joinDate" id="joinDate" value="{{employee.emp_joinDate}}">
+                </div>
+            </div>
+            <div class="col-lg-6"><a href=""><button class="btn btn-sm mt-4 p-2" style="width:100px;background-color:orangered; border:0px;border-radius:0px;color:white;">Save</button></a></div>         
+        </div>
+    </form>
+</div>
+
+{% if error == 'no' %}
+<script>
+    alert('Profile Updated Successfully');
+    window.location = ('{% url 'emp_profile' %}'); 
+</script>
+{% endif %}
+{% if error == 'yes' %}
+<script>
+    alert('Fail to Update Profile !!!');
+</script>
+{% endif %}
+
+{% endblock data %}
